@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:8889
--- Généré le :  Jeu 12 Janvier 2017 à 09:28
+-- Généré le :  Jeu 12 Janvier 2017 à 10:15
 -- Version du serveur :  5.5.42
 -- Version de PHP :  7.0.0
 
@@ -24,7 +24,7 @@ CREATE TABLE `casting` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `prenom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Contenu de la table `casting`
@@ -45,7 +45,10 @@ INSERT INTO `casting` (`id`, `nom`, `prenom`) VALUES
 (12, 'Fisher', 'Carrie'),
 (13, 'Ford', 'Harrison'),
 (14, 'Portman', 'Nathalie'),
-(15, 'Scott', 'Ridley');
+(15, 'Scott', 'Ridley'),
+(16, 'Polanski', 'Roman'),
+(17, 'Buscemi', 'Steve'),
+(18, 'Deneuve', 'Cathering');
 
 -- --------------------------------------------------------
 
@@ -59,7 +62,7 @@ CREATE TABLE `film` (
   `titre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `anneeProd` int(11) DEFAULT NULL,
   `pays_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Contenu de la table `film`
@@ -73,7 +76,11 @@ INSERT INTO `film` (`id`, `genre_id`, `titre`, `anneeProd`, `pays_id`) VALUES
 (5, 3, 'Star Wars : Episode I - La Menace fantôme', 1999, 3),
 (6, 3, 'Star Wars : Episode II - L''Attaque des clones', 2002, 3),
 (7, 3, 'Star Wars : Episode III - La Revanche des Sith', 2005, 3),
-(8, 3, 'Blade Runner', 1982, 3);
+(8, 3, 'Blade Runner', 1982, 3),
+(9, 7, 'Big Lebowski', 1998, 3),
+(10, 4, 'Le bal des vampires', 1967, 4),
+(11, 2, 'Repulsion', 1965, 2),
+(12, 2, 'Le locataire', 1976, 1);
 
 -- --------------------------------------------------------
 
@@ -100,7 +107,11 @@ INSERT INTO `films_interpretes` (`film_id`, `casting_id`) VALUES
 (5, 14),
 (6, 14),
 (7, 14),
-(8, 13);
+(8, 13),
+(9, 17),
+(10, 16),
+(11, 18),
+(12, 16);
 
 -- --------------------------------------------------------
 
@@ -125,7 +136,11 @@ INSERT INTO `films_realises` (`film_id`, `casting_id`) VALUES
 (5, 7),
 (6, 7),
 (7, 7),
-(8, 15);
+(8, 15),
+(9, 1),
+(10, 16),
+(11, 16),
+(12, 16);
 
 -- --------------------------------------------------------
 
@@ -151,6 +166,18 @@ INSERT INTO `genre` (`id`, `nom`) VALUES
 (6, 'Documentaire'),
 (7, 'Comedie'),
 (8, 'Musical');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lien`
+--
+
+CREATE TABLE `lien` (
+  `id` int(11) NOT NULL,
+  `film_id` int(11) DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -214,6 +241,13 @@ ALTER TABLE `genre`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `lien`
+--
+ALTER TABLE `lien`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_A532B4B5567F5183` (`film_id`);
+
+--
 -- Index pour la table `pays`
 --
 ALTER TABLE `pays`
@@ -227,17 +261,22 @@ ALTER TABLE `pays`
 -- AUTO_INCREMENT pour la table `casting`
 --
 ALTER TABLE `casting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT pour la table `film`
 --
 ALTER TABLE `film`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT pour la table `genre`
 --
 ALTER TABLE `genre`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT pour la table `lien`
+--
+ALTER TABLE `lien`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `pays`
 --
@@ -268,3 +307,8 @@ ALTER TABLE `films_realises`
   ADD CONSTRAINT `FK_43C1459C567F5183` FOREIGN KEY (`film_id`) REFERENCES `film` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_43C1459C9EB2648F` FOREIGN KEY (`casting_id`) REFERENCES `casting` (`id`) ON DELETE CASCADE;
 
+--
+-- Contraintes pour la table `lien`
+--
+ALTER TABLE `lien`
+  ADD CONSTRAINT `FK_A532B4B5567F5183` FOREIGN KEY (`film_id`) REFERENCES `film` (`id`);
