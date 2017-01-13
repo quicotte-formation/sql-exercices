@@ -37,3 +37,21 @@ Tous les films d'horreur, sauf ceux interprétés par Polanski ( utiliser UNION 
 Parmi tous les films, uniquement ceux interprétés par Polanski  ( utiliser UNION ou MINUS ou INTERSECT )
 
 Tous les films interprétés par Polanski et aussi tous les films d'horreur ( utiliser UNION ou MINUS ou INTERSECT )
+
+--------
+
+Nouveaux exercices:
+-------------------
+
+Tous les films qui possèdent au moin un lien ( sans COUNT, sans sous-requête )
+
+Tous les films qui ne possèdent aucun lien ( sans COUNT )
+
+Le nombre total des films réalisés pour chaque réalisateur, triés par ordre décroissant du nombre de films. ( GROUP BY )
+
+Le nombre de films réalisés pour chaque pays, triés par ordre décroissant des films ( GROUP BY et HAVING ),
+uniquement si ce nombre est compris entre 1 et 2 ( GROUP BY, HAVING, BETWEEN )
+
+L'année de production moyenne par réalisateur, par ordre alphabétique.
+
+L'année de production max par acteur, par ordre alpha.
